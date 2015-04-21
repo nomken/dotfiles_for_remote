@@ -106,8 +106,10 @@ main() {
   if [[ $(grep ".bashrc_misc" $HOME/.bashrc | wc -l) -ne 0 ]]; then
     echo "$SCRIPT_DIR/bash/.bashrc_misc already exists. skipped."
   else
-    read -p "add a command to source this script? [yN]: " yn || echo
+    read -p "add a command to use this script everytime? [yN]: " yn || echo
     [[ $yn =~ Y|y|Yes ]] && {
+      echo "" >> $HOME/.bashrc
+      echo "# for custmized bash prompt like coloring..." >> $HOME/.bashrc
       echo "[[ -s '$SCRIPT_DIR/bash/.bashrc_misc' ]] && source '$SCRIPT_DIR/bash/.bashrc_misc'" >> $HOME/.bashrc
       echo "added."
     } || echo "skipped."
@@ -117,6 +119,7 @@ main() {
 }
 
 main
+echo "do '$ source ~/.bashrc' to apply this change now."
 echo "finished."
 exit 0
 
